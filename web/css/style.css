@@ -1,0 +1,33 @@
+.FieldTable_Search {
+	border-collapse: collapse;
+}
+
+.FieldLabel_L_Search {
+	padding: 5px 0px 5px 0px;
+	border: 1px;
+	border-style: solid;
+	border-color: #C3D2E8;
+	background-color: #EDF3F9;
+	text-align: center;
+	font-family: "굴림";
+	font-size: 11px;
+} /* 사용한다 */
+.FieldData_L_Search {
+	padding: 5px 0px 5px 0px;
+	border: 1px;
+	border-style: solid;
+	border-color: #C3D2E8;
+	background-color: #EDF3F9;
+	background-color: #FFFFFF;
+	text-align: left;
+	font-family: "굴림";
+	font-size: 11px;
+} /* 사용한다 */
+.FieldData_NONE_Search {
+	border: 1px;
+	border-style: none;
+	border-color: #C3D2E8;
+	background-color: #FFFFFF;
+	font-family: "굴림";
+	font-size: 11px;
+} /* 사용한다 */

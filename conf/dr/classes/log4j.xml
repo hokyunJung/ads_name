@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
+
+	<appender name="APP_FILE"
+		class="kr.co.bizframe.logging.CompositeRollingAppender">
+		<param name="File" value="./applogs/ads/nipa_ads.log" />
+		<param name="Append" value="true" />
+		<param name="ImmediateFlush" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxSizeRollBackups" value="1000" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="RollingStyle" value="3" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1} [%t]: %m%n" />
+		</layout>
+	</appender>
+	<appender name="SQL_FILE"
+		class="kr.co.bizframe.logging.CompositeRollingAppender">
+		<param name="File" value="./applogs/ads/db/nipa_ads_db.log" />
+		<param name="Append" value="true" />
+		<param name="ImmediateFlush" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxSizeRollBackups" value="1000" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="RollingStyle" value="3" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1} [%t]: %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c [%t]: %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="APP" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="APP_FILE" />
+	</appender>
+
+	<appender name="SQL" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="SQL_FILE" />
+	</appender>
+
+	<logger name="kr.co.bizframe" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="APP" />
+	</logger>
+
+	<logger name="kr.co.bizframe.sql" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="SQL" />
+	</logger>
+
+	<logger name="DB" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="SQL" />
+	</logger>
+
+	<root>
+		<level value="WARN" />
+		<appender-ref ref="APP" />
+	</root>
+
+</log4j:configuration>
+

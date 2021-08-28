@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>공인전자주소</title>
+<script>
+function validate(){
+	window.open('', 'popupAds', 'width=450, height=450, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+	document.reqFormParam.action = "https://test.npost.kr/ads/jsp/authName/index.jsp";
+	document.reqFormParam.target = "popupAds";	
+	document.reqFormParam.submit();
+} 
+
+function confirm(authCode, name, isUnderAge, mandatorName, nameAndIdn) {
+	document.resultFormValue.authCode.value = authCode;
+	document.resultFormValue.name.value = name;
+	document.resultFormValue.isUnderAge.value = isUnderAge;
+	document.resultFormValue.mandatorName.value = mandatorName;
+	document.resultFormValue.nameAndIdn.value = nameAndIdn;
+}
+
+</script>
+</head>
+<body>
+	<form name="resultFormValue">
+		<div align=center style="padding: 50px 0px 0px 0px;">
+			<b>공인전자주소 등록대행기관 실명인증 요청페이지</b>
+			<table style="padding: 10px 0px 10px 0px;">
+				<tr>
+					<td>실명확인 코드</td>
+					<td><input type="text" name="authCode" value="" size="50"></td>
+				</tr>
+				<tr>
+					<td>성명</td>
+					<td><input type="text" name="name" value="" size="50"></td>
+				</tr>
+				<tr>
+					<td>아동여부</td>
+					<td><input type="text" name="isUnderAge" value="" size="50"></td>
+				</tr>
+				<tr>
+					<td>대리인 성명</td>
+					<td><input type="text" name="mandatorName" value="" size="50"></td>
+				</tr>
+				<tr>
+					<td>해쉬</td>
+					<td><input type="text" name="nameAndIdn" value="" size="50"></td>
+				</tr>
+			</table>
+	</form>
+
+	<form name="reqFormParam">
+		<input type="hidden" name="successPage"
+			value="http://localhost:8080/success.jsp"> <input
+			type="hidden" name="peerRegNum" value="0000000024">
+	</form>
+	<button onClick="validate();">NIPA 실명확인 서비스 호출</button>
+	<br>
+	</div>
+</body>
+</html>
+
+

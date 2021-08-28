@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+
+<!-- ======================================================================= -->
+<!-- ebMailer Build.xml -->
+<!-- author Ho-Jin Seo -->
+<!-- ======================================================================= -->
+
+<project name="ecf-ads-name" default="compile&amp;packaging"
+	basedir=".">
+	<property environment="env" />
+
+	<property name="product.name" value="ecf-ads-name" />
+	<property name="product.version" value="2.6.0" />
+	<property name="year" value="2016" />
+	<property name="main.src.dir" value="src/main" />
+	<property name="resource.dir" value="src/resource" />
+
+	<property name="build.dir" value="build" />
+	<property name="main.classes.dir" value="${build.dir}/classes/main" />
+	<property name="deploy.dir" value="${build.dir}/deploy" />
+	<property name="jar.name" value="${product.name}-${product.version}.jar" />
+	<property name="war.name" value="name.war" />
+	<property name="pkg.dir" value="kr/co/ecf/ads/name" />
+
+	<!-- =================================================================== -->
+	<!-- Build classpath -->
+	<!-- =================================================================== -->
+	<path id="classpath">
+		<fileset dir="${basedir}/web/WEB-INF/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${basedir}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${main.classes.dir}" />
+		<fileset dir="${basedir}/web/WEB-INF/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${basedir}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<property name="build.classpath" refid="classpath" />
+
+
+	<!-- =================================================================== -->
+	<!-- Init the build system -->
+	<!-- =================================================================== -->
+	<target name="init">
+		<echo message="" />
+		<echo
+			message="------------------------------------------------------------------" />
+		<echo message="----- ${product.name} v${product.version} [${year}] -----" />
+		<echo
+			message="------------------------------------------------------------------" />
+		<echo message="Building with ${ant.version}" />
+		<echo message="Java ${java.version} located at ${java.home} " />
+		<echo
+			message="------------------------------------------------------------------" />
+		<echo message="" />
+	</target>
+	<!-- =================================================================== -->
+	<!-- Prepares the build directory -->
+	<!-- =================================================================== -->
+	<target name="prepare" depends="clean,init">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${main.classes.dir}" />
+		<mkdir dir="${deploy.dir}" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Compiles the source code -->
+	<!-- =================================================================== -->
+	<target name="compile&amp;packaging" depends="prepare">
+		<javac srcdir="${main.src.dir}" destdir="${main.classes.dir}"
+			debug="on" deprecation="on" optimize="off" classpath="${build.classpath}"
+			encoding="UTF-8" source="1.7" target="1.7" includeantruntime="false">
+		</javac>
+
+		<jar jarfile="${deploy.dir}/${jar.name}">
+			<fileset dir="${main.classes.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</jar>
+
+		<war destfile="${deploy.dir}/dev/${war.name}" webxml="conf/dev/web.xml">
+			<fileset dir="web">
+				<include name="jsp/**/*" />
+				<include name="js/**/*" />
+				<include name="css/**/*" />
+				<include name="img/**/*" />
+				<include name="cab/**/*" />
+			</fileset>
+			<webinf dir="web/WEB-INF" defaultexcludes="true">
+				<include name="jboss-deployment-structure.xml" />
+			</webinf>
+			<classes dir="${main.classes.dir}" />
+			<classes dir="conf/dev/classes" />
+			<lib dir="web/WEB-INF/lib" />
+		</war>
+
+		<war destfile="${deploy.dir}/prod/${war.name}" webxml="conf/prod/web.xml">
+			<fileset dir="web">
+				<include name="jsp/**/*" />
+				<include name="js/**/*" />
+				<include name="css/**/*" />
+				<include name="img/**/*" />
+				<include name="cab/**/*" />
+
+			</fileset>
+			<webinf dir="web/WEB-INF" defaultexcludes="true">
+				<include name="jboss-deployment-structure.xml" />
+			</webinf>
+			<classes dir="${main.classes.dir}" />
+			<classes dir="conf/prod/classes" />
+			<lib dir="web/WEB-INF/lib" />
+		</war>
+
+	</target>
+
+
+	<!-- =================================================================== -->
+	<!-- Cleans up generated stuff -->
+	<!-- =================================================================== -->
+	<target name="clean">
+		<delete quiet="true">
+			<fileset dir="${classes.dir}">
+				<!-- ======================================================= -->
+				<!-- TO SET : List class filenames to delete here -->
+				<!-- ======================================================= -->
+				<include name="**/*.class" />
+			</fileset>
+		</delete>
+	</target>
+</project>
